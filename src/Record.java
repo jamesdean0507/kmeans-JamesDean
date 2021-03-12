@@ -44,6 +44,6 @@ public class Record
     @Override
     public String toString()
     {
-        return clusterNumber + "/" + x + "-" + y;
+        return x + " " + y + " " + clusterNumber;
     }
 }

@@ -56,6 +56,6 @@ public class Cluster
     @Override
     public String toString()
     {
-        return clusterNumber + "/" + xCentroid + "-" + yCentroid;
+        return xCentroid + " " + yCentroid + " " + clusterNumber;
     }
 }
