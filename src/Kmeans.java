@@ -3,13 +3,33 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Kmeans Class - public
+ */
 public class Kmeans 
 {
 
+    /**
+     * ArrayList, data, of Records
+     */
     List<Record> data = new ArrayList<Record>();
+
+    /**
+     * ArrayList, clusters, of Clusters
+     */
     List<Cluster> clusters = new ArrayList<Cluster>();
+
+    /**
+     * HashMap, clusterRecords
+     * @key Cluster
+     * @value ArrayList of Records
+     */
     Map<Cluster, List<Record>> clusterRecords = new HashMap<Cluster, List<Record>>();
 
+    /**
+     * readInput()
+     * Private method to scan input, create a record for each data-point
+     */
     private void readInput()
     {
         try 
@@ -36,6 +56,13 @@ public class Kmeans
         }
     }
 
+    /**
+     * launchCluster()
+     * @param clusterNumber
+     * Private method iterates through each record in the 
+     * ArrayList, data, to find the nearest centroid.
+     * Then the HashMap is updated.
+     */
     private void launchCluster(int clusterNumber)
     {
         int n = 1;
@@ -72,6 +99,13 @@ public class Kmeans
         }
     }
 
+    /**
+     * initCluster()
+     * @param clusterNumber
+     * @param record
+     * Private method used to create a cluster instance
+     * and add it to the HashMap
+     */
     private void initCluster(int clusterNumber, Record record)
     {
         Cluster cluster = new Cluster(clusterNumber, record.getX(), record.getY());
@@ -81,6 +115,12 @@ public class Kmeans
         clusterRecords.put(cluster, clusterRecord);
     }
 
+    /**
+     * printData()
+     * Private method, opens/creates an output file.
+     * Then the ArrayList of records is iterated through
+     * and written to the output file
+     */
     private void printData()
     {
         Path currentRelativePath = Paths.get("");
@@ -103,15 +143,9 @@ public class Kmeans
             try
             {
                 FileWriter outFile = new FileWriter(file);
-                outFile.write("***********RECORD************\n");
                 for(Record record : data)
                 {
                     outFile.write(record.toString() + "\n");
-                }
-                outFile.write("***********CLUSTER************\n");
-                for(Map.Entry<Cluster, List<Record>> entry : clusterRecords.entrySet())
-                {
-                    outFile.write(entry.getKey() + " " + entry.getValue() + "\n");
                 }
                 outFile.close();
             }
@@ -122,6 +156,10 @@ public class Kmeans
         }
     }
 
+    /**
+     * main()
+     * @param args
+     */
     public static void main(String[] args)
     {
         int clusterNumber = Integer.parseInt(args[0]);
